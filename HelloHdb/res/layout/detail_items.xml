@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="fill_parent"
+             android:layout_height="fill_parent"
+             android:padding="10dip"
+             android:stretchColumns="*"
+        >
+
+    <TableRow android:layout_marginBottom="2dip">
+        <TextView
+                android:id="@+id/detail_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textColor="#FFF"
+                android:typeface="normal"
+                android:text="Storey: "
+                />
+        <TextView
+                android:id="@+id/detail_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                />
+    </TableRow>
+    <TableRow android:layout_marginBottom="2dip">
+        <TextView
+                android:id="@+id/detail_text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textColor="#FFF"
+                android:typeface="normal"
+                android:text="Flat Model: "
+                />
+        <TextView
+                android:id="@+id/detail_text4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                />
+    </TableRow>
+    <TableRow android:layout_marginBottom="2dip">
+        <TextView
+                android:id="@+id/detail_text5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textColor="#FFF"
+                android:typeface="normal"
+                android:text="Commence Date: "
+                />
+        <TextView
+                android:id="@+id/detail_text6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                />
+    </TableRow>
+    <TableRow android:layout_marginBottom="2dip">
+        <TextView
+                android:id="@+id/detail_text7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textColor="#FFF"
+                android:typeface="normal"
+                android:text="Resale Price: "
+                />
+        <TextView
+                android:id="@+id/detail_text8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                />
+    </TableRow>
+    <TableRow android:layout_marginBottom="2dip">
+        <TextView
+                android:id="@+id/detail_text9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textColor="#FFF"
+                android:typeface="normal"
+                android:text="Approval Date: "
+                />
+        <TextView
+                android:id="@+id/detail_text10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                />
+    </TableRow>
+
+</TableLayout>
