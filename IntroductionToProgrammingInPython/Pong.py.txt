@@ -1,0 +1,212 @@
+# Implementation of classic arcade game Pong
+
+import simplegui
+import random
+
+# initialize globals - pos and vel encode vertical info for paddles
+WIDTH = 600
+HEIGHT = 400
+BALL_RADIUS = 20
+PAD_WIDTH = 8
+PAD_HEIGHT = 80
+HALF_PAD_WIDTH = PAD_WIDTH / 2
+HALF_PAD_HEIGHT = PAD_HEIGHT / 2
+
+ball_pos = [WIDTH / 2, HEIGHT / 2]
+ball_vel = [0, 0]
+
+paddle1_pos = 0.0
+paddle2_pos = 0.0
+
+paddle1_vel = 0.0
+paddle2_vel = 0.0
+
+score1 = 0
+score2 = 0
+
+# 0 - left
+# 1 - right
+direction = 0
+
+# helper function that spawns a ball by updating the 
+# ball's position vector and velocity vector
+# if right is True, the ball's velocity is upper right, else upper left
+def ball_init(right):
+    global ball_pos, ball_vel # these are vectors stored as lists
+
+    if right:
+        ball_vel = [3, -3]
+    else:
+        ball_vel = [-3, -3]
+    
+    ball_pos = [WIDTH / 2, HEIGHT / 2]
+
+def ball_paddle_1_col(ball_x,ball_y):
+    _x = (ball_x - BALL_RADIUS) <= (PAD_WIDTH)
+    _y = (ball_y <= (paddle1_pos + PAD_HEIGHT)) and (ball_y >= paddle1_pos)
+
+    return _x and _y
+
+def ball_paddle_2_col(ball_x,ball_y):
+    _x = (ball_x + BALL_RADIUS) >= (WIDTH - PAD_WIDTH + 4)
+    _y = (ball_y <= (paddle2_pos + PAD_HEIGHT)) and (ball_y >= paddle2_pos)
+
+    return _x and _y
+    
+def ball_canvas_up_col(ball_x,ball_y):
+    return (ball_y - BALL_RADIUS)<0
+
+def ball_canvas_down_col(ball_x,ball_y):
+    return (ball_y + BALL_RADIUS)>HEIGHT
+
+def a_player_wins(who):
+    global score1, score2, direction, ball_vel
+    
+    if who == 1:
+        score1 += 1
+        ball_vel = [-3, -3]
+        direction = 0
+    else:
+        score2 += 1
+        ball_vel = [3, -3]
+        direction = 1
+    
+# define event handlers
+
+def new_game():
+    global paddle1_pos, paddle2_pos, paddle1_vel, paddle2_vel  # these are floats
+    global score1, score2  # these are ints
+    global direction
+
+    paddle1_pos = 0.0
+    paddle2_pos = 0.0
+    
+    paddle1_vel = 0.0
+    paddle2_vel = 0.0
+    
+    score1 = 0
+    score2 = 0
+    
+    direction = random.randint(0,1)
+    ball_init(direction==1)
+
+def draw(c):
+    global score1, score2, paddle1_pos, paddle2_pos, ball_pos, ball_vel
+    global direction
+    
+    # update paddle's vertical position, keep paddle on the screen
+    old_paddle1_pos = paddle1_pos
+    old_paddle2_pos = paddle2_pos
+    
+    paddle1_pos += paddle1_vel
+    paddle2_pos += paddle2_vel
+    
+    if (paddle1_pos + PAD_HEIGHT)>HEIGHT:
+        paddle1_pos = old_paddle1_pos
+    if paddle1_pos<0:
+        paddle1_pos = old_paddle1_pos
+    
+    if (paddle2_pos + PAD_HEIGHT)>HEIGHT:
+        paddle2_pos = old_paddle2_pos
+    if paddle2_pos<0:
+        paddle2_pos = old_paddle2_pos
+        
+    # draw mid line and gutters
+    c.draw_line([WIDTH / 2, 0],[WIDTH / 2, HEIGHT], 1, "White")
+    c.draw_line([PAD_WIDTH, 0],[PAD_WIDTH, HEIGHT], 1, "White")
+    c.draw_line([WIDTH - PAD_WIDTH, 0],[WIDTH - PAD_WIDTH, HEIGHT], 1, "White")
+    
+    # draw paddles
+    c.draw_line([4, paddle1_pos],[4, paddle1_pos + PAD_HEIGHT], PAD_WIDTH, "White")
+    c.draw_line([WIDTH - PAD_WIDTH + 4, paddle2_pos],[WIDTH - PAD_WIDTH + 4, paddle2_pos + PAD_HEIGHT], PAD_WIDTH, "White")
+     
+    # update ball
+    old_x = ball_pos[0]
+    old_y = ball_pos[1]
+    
+    new_x = ball_pos[0] + ball_vel[0]
+    new_y = ball_pos[1] + ball_vel[1]
+
+    # left
+    if direction == 0:
+        if ball_paddle_1_col(new_x,new_y):
+            ball_vel[0] = ball_vel[0] * -1
+            new_x = old_x
+            
+            if direction == 0: 
+                direction = 1
+            else:
+                direction = 0
+        elif (new_x - BALL_RADIUS) <= PAD_WIDTH:
+            a_player_wins(2)
+            
+            new_x = WIDTH / 2
+            new_y = HEIGHT / 2
+            
+    # right
+    elif direction == 1:
+        if ball_paddle_2_col(new_x,new_y):
+            ball_vel[0] = ball_vel[0] * -1
+            new_x = old_x
+
+            if direction == 0: 
+                direction = 1
+            else:
+                direction = 0
+        elif (new_x + BALL_RADIUS) >= (WIDTH - PAD_WIDTH + 4):
+            a_player_wins(1)
+            
+            new_x = WIDTH / 2
+            new_y = HEIGHT / 2
+    
+    if ball_canvas_up_col(new_x,new_y):
+        ball_vel[1] = ball_vel[1] * -1
+        new_y = old_y
+
+    elif ball_canvas_down_col(new_x,new_y):
+        ball_vel[1] = ball_vel[1] * -1
+        new_y = old_y
+        
+    ball_pos[0] = new_x
+    ball_pos[1] = new_y
+    
+    # draw ball and scores
+    c.draw_circle(ball_pos, BALL_RADIUS, 2, "Red", "White")
+    c.draw_text(str(score1), (230, 50), 36, "White")
+    c.draw_text(str(score2), (350, 50), 36, "White")
+
+def keydown(key):
+    global paddle1_vel, paddle2_vel
+    
+    if key==simplegui.KEY_MAP["w"]:
+        paddle1_vel = -3
+    if key==simplegui.KEY_MAP["s"]:
+        paddle1_vel = 3 
+    if key==simplegui.KEY_MAP["up"]:
+        paddle2_vel = -3 
+    if key==simplegui.KEY_MAP["down"]:
+        paddle2_vel = 3 
+    
+def keyup(key):
+    global paddle1_vel, paddle2_vel
+    
+    if key==simplegui.KEY_MAP["w"]:
+        paddle1_vel = 0 
+    if key==simplegui.KEY_MAP["s"]:
+        paddle1_vel = 0 
+    if key==simplegui.KEY_MAP["up"]:
+        paddle2_vel = 0 
+    if key==simplegui.KEY_MAP["down"]:
+        paddle2_vel = 0 
+        
+# create frame
+frame = simplegui.create_frame("Pong", WIDTH, HEIGHT)
+frame.set_draw_handler(draw)
+frame.set_keydown_handler(keydown)
+frame.set_keyup_handler(keyup)
+frame.add_button("Restart", new_game, 100)
+
+# start frame
+frame.start()
+
+new_game()

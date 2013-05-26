@@ -1,0 +1,120 @@
+# implementation of card game - Memory
+
+import simplegui
+import random
+
+CARD_WIDTH = 50
+CARD_HEIGHT = 100
+
+values = [0,1,2,3,4,5,6,7,0,1,2,3,4,5,6,7]
+states = [False,False,False,False,False,False,False,False, \
+          False,False,False,False,False,False,False,False]
+
+opened = 0
+moves = 0
+
+prev1 = 0
+prev1Idx = 0
+prev2 = 0
+prev2Idx = 0
+
+pairs = 0
+
+# helper function to initialize globals
+def init():
+    global values, states, opened, moves, \
+           prev1, prev1Idx, prev2, prev2Idx, pairs
+    
+    for i in range(1000):
+        fromIdx = random.randrange(0, 16)
+        toIdx = random.randrange(0, 16)
+
+        _temp_value_ = values[toIdx]
+        values[toIdx] = values[fromIdx]
+        values[fromIdx] = _temp_value_
+
+    states = [False,False,False,False,False,False,False,False, \
+              False,False,False,False,False,False,False,False]
+
+    opened = 0
+    moves = 0
+    prev1 = 0
+    prev1Idx = 0
+    prev2 = 0
+    prev2Idx = 0
+    
+    pairs = 0
+    
+# define event handlers
+def mouseclick(pos):
+    global states, opened, moves, \
+    prev1, prev2, prev1Idx, prev2Idx, pairs
+    
+    # add game state logic here
+    if pairs < 8:
+        whichCard = pos[0] // CARD_WIDTH
+        if states[whichCard] == False:
+            states[whichCard] = not states[whichCard]
+            opened = opened + 1
+    
+        if opened == 1:
+            prev1 = values[whichCard]
+            prev1Idx = whichCard
+            
+        if opened == 2:
+            prev2 = values[whichCard]
+            prev2Idx = whichCard
+    
+            if prev1 == prev2:
+                pairs = pairs + 1
+                
+            moves = moves + 1
+            
+        if opened == 3:
+            if prev1 != prev2:
+                states[prev1Idx] = False
+                states[prev2Idx] = False
+    
+            prev1 = values[whichCard]
+            prev1Idx = whichCard
+    
+            opened = 1
+    
+# cards are logically 50x100 pixels in size    
+def draw(canvas):
+    for i in range(16):
+        xPos = i * CARD_WIDTH
+        if states[i]:
+            canvas.draw_polygon([(xPos, 0), \
+                      (xPos + CARD_WIDTH, 0), \
+                      (xPos + CARD_WIDTH, CARD_HEIGHT), \
+                      (xPos, CARD_HEIGHT)], \
+                      1, "Yellow", "Black")
+            canvas.draw_text(str(values[i]), \
+                             (xPos + 17, 57), \
+                             30 ,"White")
+        else:
+            canvas.draw_polygon([(xPos, 0), \
+                      (xPos + CARD_WIDTH, 0), \
+                      (xPos + CARD_WIDTH, CARD_HEIGHT), \
+                      (xPos, CARD_HEIGHT)], \
+                      1, "Yellow", "Green")
+
+    label.set_text("Moves = " + str(moves))
+            
+# create frame and add a button and labels
+frame = simplegui.create_frame("Memory", 800, 100)
+frame.add_button("Restart", init)
+label = frame.add_label("Moves = 0")
+
+# initialize global variables
+init()
+
+# register event handlers
+frame.set_mouseclick_handler(mouseclick)
+frame.set_draw_handler(draw)
+
+# get things rolling
+frame.start()
+    
+# Always remember to review the grading rubric

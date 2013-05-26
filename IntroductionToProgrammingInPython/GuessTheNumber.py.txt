@@ -1,0 +1,101 @@
+# template for "Guess the number" mini-project
+# input will come from buttons and an input field
+# all output for the game will be printed in the console
+
+import simplegui
+import random
+
+# initialize global variables used in your code
+CANVAS_SIZE = 200
+
+theNumber = -1
+guessedNumber = -1
+remainingGuesses = -1
+
+activeRange = 0
+
+# define event handlers for control panel
+def init():
+    global theNumber, remainingGuesses, activeRange
+    
+    if activeRange == 0:
+        theNumber = random.randrange(0,100)
+        remainingGuesses = 7
+
+        print 'New game. Range is from 0 to 100'
+        print 'Number of remaining guesses is 7'
+    else:
+        theNumber = random.randrange(0,1000)
+        remainingGuesses = 10
+
+        print 'New game. Range is from 0 to 1000'
+        print 'Number of remaining guesses is 10'
+
+    print        
+    
+def range100():
+    # button that changes range to range [0,100) and restarts
+    global activeRange
+    
+    activeRange = 0
+    init()
+
+def range1000():
+    # button that changes range to range [0,1000) and restarts
+    global activeRange
+    
+    activeRange = 1
+    init()
+    
+def get_input(guess):
+    # main game logic goes here	
+    global theNumber, remainingGuesses
+
+    feedback = ''
+    
+    if guess.isdigit():
+        guessedNumber = int(guess)
+        if guessedNumber < theNumber:
+            remainingGuesses = remainingGuesses -1
+            feedback = 'Higher!'
+        elif guessedNumber > theNumber:
+            remainingGuesses = remainingGuesses -1
+            feedback = 'Lower!'
+        else:
+            remainingGuesses = remainingGuesses -1
+            feedback = 'Correct!'
+    else:
+        remainingGuesses = remainingGuesses -1
+        feedback = 'Enter number only!'
+        
+    if feedback == 'Enter number only!':
+        print 'Guess was invalid'
+    else:
+        print 'Guess was ' + str(guessedNumber)
+
+    if (feedback != 'Correct!' and remainingGuesses == 0):
+        feedback = 'You ran out of guesses. The number was ' + str(theNumber)
+        
+    print 'Number of remaining guesses is ' + str(remainingGuesses)
+    print feedback
+    print
+
+    if (feedback == 'Correct!' or remainingGuesses == 0):
+        init()
+
+# create frame
+frame = simplegui.create_frame("Guess The Number",
+                               CANVAS_SIZE,
+                               CANVAS_SIZE)
+
+# register event handlers for control elements
+range100Btn = frame.add_button("Range is [0, 100)", range100, 200)
+range1000Btn = frame.add_button("Range is [0, 1000)", range1000, 200)
+frame.add_input("Enter a guess", get_input, 200)
+
+# start frame
+init()
+
+frame.start()
+
+# always remember to check your completed program against the grading rubric
