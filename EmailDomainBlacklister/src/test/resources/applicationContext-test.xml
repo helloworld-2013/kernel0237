@@ -29,10 +29,6 @@
         </property>
     </bean>
 
-    <bean id="testTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="testEntityManagerFactory" />
-    </bean>
-
     <context:component-scan base-package="mylab.mail.util.emailblacklister" />
 
 </beans>
