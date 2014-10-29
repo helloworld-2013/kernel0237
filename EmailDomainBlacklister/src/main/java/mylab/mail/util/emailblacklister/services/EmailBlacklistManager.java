@@ -17,12 +17,12 @@ public class EmailBlacklistManager {
     @Autowired
     private EmailBlacklistDAO emailBlacklistDAO;
 
-    @Transactional
+    @Transactional(readOnly = false)
     public void create(EmailBlacklistForm emailBlacklistForm) {
         emailBlacklistDAO.create(emailBlacklistForm);
     }
 
-    @Transactional
+    @Transactional(readOnly = false)
     public void delete(String ids) {
         String _ids[] = ids.split(",");
         for (String id : _ids) emailBlacklistDAO.delete(Integer.parseInt(id));
