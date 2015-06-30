@@ -1,0 +1,59 @@
+@charset "utf-8";
+/* CSS Document */
+/*=========================================
+General
+==========================================*/
+::selection{color:#fff;background:#647687;}
+::-moz-selection{color:#fff;background:#647687;}
+a:hover, a:focus {color:#647687;}
+a.color{color:#647687;}
+a.readmore:hover{	color:#647687;}
+strong.color, span.color{	color:#647687;}
+/*=========================================
+Site
+==========================================*/
+.menu-lamp > li > a.active,
+.menu-lamp > li:hover > a{	color:#647687;}
+.submenu li a:hover{	background:#647687;}
+#box {	border-top:3px solid #647687;}
+#box .head i	{	color:#647687;}
+.menu-lamp > li:hover > a{	color:#647687;}
+.submenu li a:hover{  background:#647687;}
+.carousel .flex-control-paging li a.flex-active{	background:#647687;}
+.project-item .project-meta .effect{	background:#647687;}
+.carousel .inner-slider:hover .flex-next:hover {opacity: 1; background:#647687;}
+.carousel .inner-slider:hover .flex-prev:hover {opacity: 1; background:#647687;}
+.nivo-caption a { color:#647687;}
+.nivo-directionNav a:hover{	background:#647687;}
+.testimonial .text{	background:#647687;}
+.testimonial .text .point-client{color:#647687;}
+.testimonial .flex-control-paging li a.flex-active{	background:#647687;}
+.js .selectnav.dropdown-menu a:hover {	background:#647687;	color:#fff;}
+#page-header{background:#647687;}
+#page-section-6{ background:#647687;}
+#features-1 .feature-icon{	background:#647687;}
+.portfolio-filter li a:hover, .portfolio-filter li a.active{background:#647687;}
+#features-3 .feature-icon.color, #features-4 .feature-icon.color {color:#647687;} 
+#features-5 .feature-icon.color{background:#647687;color:#fff;}
+#features-2 .feature-icon{	background:#647687;}
+#blog-1 .entry-meta .post-type, #blog-2 .post-type{background:#647687;}
+.pagination > ul > li > a:hover, .pagination > ul > li > a.disable{	background:#647687;}
+.popular-tags a:hover{background:#647687;}
+#slider-in-tab .flex-slider{background:#647687}
+/*=========================================
+Shortcode
+==========================================*/
+.vertical-tabs .nav-tabs > li > a:hover {  background-color:#647687;}
+.vertical-tabs .nav-tabs > li.active > a{    background-color:#647687;}
+.horizotal-tabs .nav-tabs li a:hover{  background-color:#647687;}
+.horizotal-tabs .nav-tabs li.active a {  background-color:#647687;	}
+.drop-cap {	background:#647687;}
+blockquote{	border-left:5px solid #647687;	background:#f8f8f8;}
+.accordion-heading .accordion-toggle.active, .accordion-heading .accordion-toggle:hover {background-color:#647687;}
+.toggle-heading .toggler.active, .toggle-heading .toggler:hover {background-color:#647687; color:#fff;}
+.btn-flat{	background:#647687;}
+.btn-flat.black:hover{	background:#647687;	}
+.progress .bar{	background:#647687;}
+
+
+
