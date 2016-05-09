@@ -1,0 +1,12 @@
+{
+	"name": "Github",
+	"version": "1.0.0",
+	"scripts": {
+		"start": "node Github.js"
+	},
+	"dependencies": {
+		"express": "latest",
+		"github-oauth": "latest",
+		"github-client": "latest"
+	}
+}
