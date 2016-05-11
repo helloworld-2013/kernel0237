@@ -1,1 +1,8 @@
+# node folder
 node_modules
+
+# sublime folder
+.DS_Store
+
+# build folder
+frontend/dist
