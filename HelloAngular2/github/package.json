@@ -1,5 +1,5 @@
 {
-	"name": "Github test",
+	"name": "github-test",
 	"version": "1.0.0",
 	"scripts": {
 		"start": "node Github.js"
