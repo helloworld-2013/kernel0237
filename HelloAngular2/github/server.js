@@ -1,16 +1,11 @@
-var githubOAuth = require('github-oauth')({
-	githubClient: process.env.GITHUB_CLIENT_ID,
-	githubSecret: process.env.GITHUB_CLIENT_KEY,
-	baseURL: 'http://localhost:8888',
-	loginURI: '/login',
-	callbackURI: '/callback',
-	scope: 'user' // optional, default scope is set to user
-});
-
 var express = require('express'),
 	app = express(),
 	octokat = require('octokat'),
-	github = {};
+	github = {},
+	gitconfig = require('./config/gitconfig'),
+	helpers = require('./config/helpers');
+
+var githubOAuth = require('github-oauth')(gitconfig);
 
 app.use(express.static(__dirname + '/public'));
 app.use('/assets', express.static(__dirname + '/frontend/dist'));
@@ -39,11 +34,11 @@ app.get('/following/:userid',function(req,res) {
 	});
 });
 
-var server = app.listen(8888, () => {
+var server = app.listen(helpers.port, () => {
 	let host = server.address().address;
 	let port = server.address().port;
 
-	host = (host === '::' ? 'localhost' : host);
+	host = (host === '::' ? helpers.host : host);
 	console.log(`listening at http:${host}:${port}`);
 });
 
