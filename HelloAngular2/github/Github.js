@@ -14,12 +14,28 @@ var express = require('express'),
 
 app.use(express.static(__dirname + '/static'));
 
-app.get(['/login'],function(req,res) {
+app.get('/login',function(req,res) {
 	return githubOAuth.login(req, res)
 });
 
 app.get('/callback',function(req,res) {
 	return githubOAuth.callback(req, res)
+});
+
+app.get('/following',function(req,res) {
+	github.me.following.read()
+	.then(function(users){
+		res.setHeader('Content-Type', 'application/json');
+		res.send(users);
+	});
+});
+
+app.get('/following/:userid',function(req,res) {
+	github.users(req.params.userid).following.read()
+	.then(function(users){
+		res.setHeader('Content-Type', 'application/json');
+		res.send(users);
+	});
 });
 
 app.listen(8888);
@@ -32,15 +48,5 @@ githubOAuth.on('token', function(token, serverResponse) {
 	github = new octokat({
 		token: token.access_token
 	});
-
-	github.me.following.read()
-	.then(function(users){
-		var _users = JSON.parse(users)
-		console.log('I am following below user(s):');
-		for (var i = 0;i < _users.length;i++) {
-			console.log(_users[i].login);
-		}
-	});
-
 	serverResponse.sendFile(__dirname + '/static/index.html');
 })
