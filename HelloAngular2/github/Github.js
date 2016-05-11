@@ -1,6 +1,6 @@
 var githubOAuth = require('github-oauth')({
-	githubClient: 'a56f003b74129a65180c',
-	githubSecret: '2b2e40b66a443548be4f3eb107afa122514daaf5',
+	githubClient: process.env.GITHUB_CLIENT_ID,
+	githubSecret: process.env.GITHUB_CLIENT_KEY,
 	baseURL: 'http://localhost:8888',
 	loginURI: '/login',
 	callbackURI: '/callback',
