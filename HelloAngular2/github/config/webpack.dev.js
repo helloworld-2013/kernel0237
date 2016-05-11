@@ -5,7 +5,6 @@ module.exports = {
 	},
 	output: {
 		path: path.resolve(__dirname, "../frontend/dist"),
-		publicPath: "/assets/js/",
 		filename: "app.bundle.js"
 	}
 };
