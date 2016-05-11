@@ -1,12 +1,20 @@
 {
-	"name": "github-test",
-	"version": "1.0.0",
-	"scripts": {
-		"start": "node Github.js"
-	},
-	"dependencies": {
-		"express": "latest",
-		"github-oauth": "latest",
-		"octokat": "latest"
-	}
+  "name": "github-test",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node Github.js"
+  },
+  "dependencies": {
+    "express": "latest",
+    "github-oauth": "latest",
+    "octokat": "latest"
+  },
+  "devDependencies": {
+    "karma": "^0.13.22",
+    "protractor": "^3.3.0",
+    "typescript": "^1.8.10",
+    "typings": "^0.8.1",
+    "webpack": "^1.13.0",
+    "webpack-dev-server": "^1.14.1"
+  }
 }
