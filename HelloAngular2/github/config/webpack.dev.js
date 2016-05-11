@@ -1,10 +1,25 @@
-var path = require("path");
+var webpack = require("webpack");
+
 module.exports = {
 	entry: {
-		app: ["./frontend/app/main.js"]
+		vendor: ["./frontend/app/vendor"],
+		app: ["./frontend/app/main"]
 	},
 	output: {
-		path: path.resolve(__dirname, "../frontend/dist"),
-		filename: "app.bundle.js"
+		path: __dirname,
+		filename: "../frontend/dist/[name].bundle.js"
+	},
+	resolve: {
+		extensions: ['', '.js', '.ts']
+	},
+	devtool: 'source-map',
+	module: {
+		loaders: [
+		{
+			test: /\.ts/,
+			loaders: ['ts-loader'],
+			exclude: /node_modules/
+		}
+		]
 	}
 };
