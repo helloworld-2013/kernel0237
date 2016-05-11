@@ -14,12 +14,20 @@ var express = require('express'),
 
 app.use(express.static(__dirname + '/static'));
 
-app.get(['/login'],function(req,res) {
+app.get('/login',function(req,res) {
 	return githubOAuth.login(req, res)
 });
 
 app.get('/callback',function(req,res) {
 	return githubOAuth.callback(req, res)
+});
+
+app.get('/following/:userid',function(req,res) {
+	github.users(req.params.userid).following.read()
+	.then(function(users){
+		res.setHeader('Content-Type', 'application/json');
+		res.send(users);
+	});
 });
 
 app.listen(8888);
