@@ -7,6 +7,6 @@
 	"dependencies": {
 		"express": "latest",
 		"github-oauth": "latest",
-		"github-client": "latest"
+		"octokat": "latest"
 	}
 }

@@ -9,7 +9,8 @@ var githubOAuth = require('github-oauth')({
 
 var express = require('express'),
 	app = express(),
-	userToken = '';
+	octokat = require('octokat'),
+	github = {};
 
 app.use(express.static(__dirname + '/static'));
 
@@ -28,6 +29,18 @@ githubOAuth.on('error', function(err) {
 })
 
 githubOAuth.on('token', function(token, serverResponse) {
-	userToken = token.access_token
+	github = new octokat({
+		token: token.access_token
+	});
+
+	github.me.following.read()
+	.then(function(users){
+		var _users = JSON.parse(users)
+		console.log('I am following below user(s):');
+		for (var i = 0;i < _users.length;i++) {
+			console.log(_users[i].login);
+		}
+	});
+
 	serverResponse.sendFile(__dirname + '/static/index.html');
 })
