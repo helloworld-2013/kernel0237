@@ -4,7 +4,7 @@
   "scripts": {
     "start": "npm run webpack && babel-node server.js",
     "webpack": "webpack --progress --colors",
-    "postinstall": "npm install -g webpack webpack-dev-server karma protractor typings typescript"
+    "postinstall": "npm install -g webpack webpack-dev-server karma protractor typings typescript babel-cli"
   },
   "dependencies": {
     "angular2": "2.0.0-beta.17",
