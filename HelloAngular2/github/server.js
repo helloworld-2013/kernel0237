@@ -35,8 +35,8 @@ app.get('/following/:userid',function(req,res) {
 });
 
 var server = app.listen(helpers.port, () => {
-	let host = server.address().address;
-	let port = server.address().port;
+	var host = server.address().address;
+	var port = server.address().port;
 
 	host = (host === '::' ? helpers.host : host);
 	console.log(`listening at http:${host}:${port}`);
