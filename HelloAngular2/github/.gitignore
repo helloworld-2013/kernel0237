@@ -6,3 +6,6 @@ node_modules
 
 # build folder
 frontend/dist
+
+# ignore oauth
+config/oauth.js

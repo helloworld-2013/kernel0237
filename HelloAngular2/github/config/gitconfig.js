@@ -1,8 +1,9 @@
 var helpers = require('./helpers');
+var oauth = require('./oauth');
 
 var gitConfig = {
-	githubClient: process.env.GITHUB_CLIENT_ID,
-	githubSecret: process.env.GITHUB_CLIENT_KEY,
+	githubClient: oauth.GITHUB_CLIENT_ID,
+	githubSecret: oauth.GITHUB_CLIENT_KEY,
 	baseURL: `http://${helpers.host}:${helpers.port}`,
 	loginURI: '/login',
 	callbackURI: '/callback',
