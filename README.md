@@ -1,6 +1,3 @@
-Hello World
-===========
+# kernel0237
 
-This github repository currently is containing my trial and error attempts.
-
-No plans for world domination yet and I don't have desire for that either.
+kernel0237 is a repository for my personal and collaborative projects.
